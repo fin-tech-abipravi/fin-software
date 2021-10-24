@@ -14,6 +14,12 @@ urlpatterns = [
     path('viewcostumers', TemplateView.as_view(template_name="index.html")),
     path('updateCostumer', TemplateView.as_view(template_name="index.html")),
     path('reports', TemplateView.as_view(template_name="index.html")),
+    path('Settings', TemplateView.as_view(template_name="index.html")),
+    path('collectionDetails', TemplateView.as_view(template_name="index.html")),
+    path('addCostumer', TemplateView.as_view(template_name="index.html")),
+    path('updateCostumer', TemplateView.as_view(template_name="index.html")),
+    path('addCollection', TemplateView.as_view(template_name="index.html")),
+    path('planclac', TemplateView.as_view(template_name="index.html")),
 
 
     # path("", views.apiloginview, name="login"),
