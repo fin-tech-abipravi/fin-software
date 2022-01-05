@@ -33,14 +33,18 @@ urlpatterns = [
          views.deletecostumer, name="deletecostumer"),
     path('updatecostumer/<str:pk>/',
          views.updatecostumer, name="updatecostumer"),
+    path('costumerdetail/<str:pk>/',
+         views.getcostumerdetail, name='costumerdetail'),
 
 
     # Collection List Data URLS
     path('createcollection/<str:tk>/',
-         views.createcollection, name="createcollection")	,
+         views.createcollection, name="createcollection"),
     path('getcollection/<str:tk>/', views.getcollection, name="getcollection"),
     path('getcollectiondetail/<str:pk>/',
          views.getcollectiondetail, name="getcollectiondetail"),
+    path('getcollectionbydate/<str:tk>/<str:pk>/',
+         views.getcollectionbydate, name="getcollectionbydate"),
     path('deletecollection/<str:pk>',
          views.deletecollection, name="deletecollection"),
     path('updatecollection/<str:pk>',

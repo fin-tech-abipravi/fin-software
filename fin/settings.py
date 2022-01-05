@@ -165,9 +165,9 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASS')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
-# CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = True
 
-CORS_ALLOWED_ORIGINS = ['https://finance-abipravi.netlify.app','https://finance-abipravi.herokuapp.com', 'http://localhost:8000', 'http://localhost:3000']
+# CORS_ALLOWED_ORIGINS = ['https://finance-abipravi.netlify.app','https://finance-abipravi.herokuapp.com', 'http://localhost:8000', 'http://localhost:3000']
 
 # DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

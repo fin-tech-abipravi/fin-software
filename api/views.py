@@ -76,6 +76,13 @@ def deletecostumer(request, pk, tk):
         return JsonResponse("{'request' : 'failed', 'User' : 'User token invalid'}", safe=False)
 
 
+@api_view(['GET'])
+def getcostumerdetail(request, pk):
+    data = Costumerdetails.objects.get(id=pk)
+    serializer = Costumerdetailsserializer(data, many=False)
+    return JsonResponse(serializer.data, safe=False)
+
+
 @api_view(['POST'])
 def updatecostumer(request, pk):
     data = Costumerdetails.objects.get(id=pk)
@@ -104,19 +111,17 @@ def getcollection(request, tk):
 
 @api_view(['GET'])
 def getcollectiondetail(request, pk):
-   user_lists = (Collectionlist.objects
-    .filter(costumer_id = pk)
-    .values('ammount', 'costumer_id', 'costumer_name', 'date', 'id')  # all fields you need
-    )
-   person = serializers.serialize("json", Collectionlist.objects.filter(costumer_id = 25))
-   list_data_json = json.dumps(list(user_lists))
-   print(user_lists)
-   return JsonResponse(list_data_json, safe=False)
+    user_lists = Collectionlist.objects.filter(costumer_id=pk).values('id', 'date',
+                                                                      'ammount', 'costumer_id', 'costumer_name')
+    serializer = Collectionlistserializer(user_lists, many=True)
+    return JsonResponse(serializer.data, safe=False)
 
 
 @api_view(['POST'])
 def createcollection(request, tk):
     if check_auth(tk) == True:
+        print("auth")
+        print(request.data)
         serializer = Collectionlistserializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -143,6 +148,15 @@ def updatecollection(request, pk):
     if serializer.is_valid():
         serializer.save()
     return JsonResponse(serializer.data, safe=False)
+
+
+@api_view(['GET'])
+def getcollectionbydate(request, tk, pk):
+    collection = Collectionlist.objects.filter(date=pk).values('id', 'date',
+                                                                      'ammount', 'costumer_id', 'costumer_name')
+    serializer = Collectionlistserializer(collection, many=True)
+    return JsonResponse(serializer.data, safe=False)
+
 
 
 '''
