@@ -49,6 +49,8 @@ urlpatterns = [
          views.deletecollection, name="deletecollection"),
     path('updatecollection/<str:pk>',
          views.updatecollection, name="updatecollection"),
+    path('getcostumercollectionbydate/<str:tk>/<str:pk>/<str:date>/',
+         views.getCostumerCollectionbyDate, name='getcostumercollectionbydate'),
     # expece table data urls
     path('getexpence/', views.getExpence, name="getexpence"),
     path('getexpencedetail/',
@@ -77,6 +79,7 @@ urlpatterns = [
     path('getaihdetail/<str:pk>', views.getaihdetail, name="getaihdetail"),
     path('createaih', views.createaih, name="createaih"),
     path('updateaih/<str:pk>', views.updateaih, name="updateaih"),
+    path('getaihlatest', views.getaithlatest, name="getaihlatest"),
     # Close up  table data urls
     path('getcloseup', views.getcloseup, name="getcloseup"),
     path('getcloseupdetail/<str:pk>',

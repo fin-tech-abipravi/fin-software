@@ -117,18 +117,36 @@ def getcollectiondetail(request, pk):
     return JsonResponse(serializer.data, safe=False)
 
 
+def checkDuplicate(data):
+    date = data.get('date')
+    id = data.get('costumer_id')
+    ammount = data.get('ammount')
+    CollectionData = Collectionlist.objects.filter(
+        date=date, costumer_id=id)
+    serializer = Collectionlistserializer(CollectionData, many=True)
+    return 1 if len(serializer.data) > 0 else 0
+
+
 @api_view(['POST'])
 def createcollection(request, tk):
     if check_auth(tk) == True:
         print("auth")
         print(request.data)
-        serializer = Collectionlistserializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
+        is_duplicate = checkDuplicate(request.data)
+        if is_duplicate == 1:
+            id = CostumerCollectionbyDate(request.data.get(
+                'costumer_id'), request.data.get('date'))
+            updatecollectionbyId(request.data, id)
+            return JsonResponse("Collection Updated", safe=False)
         else:
-            print("not")
-            print(f'\n{serializer.data}\n')
-        return JsonResponse(serializer.data, safe=False)
+            serializer = Collectionlistserializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                print('saved')
+            else:
+                print("not")
+                print(f'\n{serializer.data}\n')
+            return JsonResponse(serializer.data, safe=False)
     else:
         return JsonResponse("Create Collection Error", safe=False)
 
@@ -150,13 +168,43 @@ def updatecollection(request, pk):
     return JsonResponse(serializer.data, safe=False)
 
 
+def updatecollectionbyId(request, pk):
+    data = Collectionlist.objects.get(id=pk)
+    serializer = Collectionlistserializer(instance=data, data=request)
+    print(data)
+    if serializer.is_valid():
+        serializer.save()
+    print("Data Updated")
+    # return JsonResponse(serializer.data, safe=False)
+
+
 @api_view(['GET'])
 def getcollectionbydate(request, tk, pk):
     collection = Collectionlist.objects.filter(date=pk).values('id', 'date',
-                                                                      'ammount', 'costumer_id', 'costumer_name')
+                                                               'ammount', 'costumer_id', 'costumer_name')
     serializer = Collectionlistserializer(collection, many=True)
     return JsonResponse(serializer.data, safe=False)
 
+
+def CostumerCollectionbyDate(pk, date):
+    x = 0
+    collection = Collectionlist.objects.filter(
+        date=date, costumer_id=pk).values('id', 'date',
+                                          'ammount', 'costumer_id', 'costumer_name')
+    serializer = Collectionlistserializer(collection, many=True)
+    for course in collection:
+        x = course['id']
+    return x
+    # print(collection.id)
+    # return JsonResponse(serializer.data, safe=False)
+
+
+@api_view(['GET'])
+def getCostumerCollectionbyDate(request, tk, pk, date):
+    collection = Collectionlist.objects.filter(
+        date=date, costumer_id=pk)
+    serializer = Collectionlistserializer(collection, many=True)
+    return JsonResponse(serializer.data, safe=False)
 
 
 '''
@@ -339,6 +387,13 @@ def updateaih(request, pk):
     serializer = Ammountinhandserializer(instance=data, data=request.data)
     if serializer.is_valid():
         serializer.save()
+    return JsonResponse(serializer.data, safe=False)
+
+
+@api_view(['GET'])
+def getaithlatest(request):
+    data = Ammountinhand.objects.latest('id')
+    serializer = Ammountinhandserializer(data, many=False)
     return JsonResponse(serializer.data, safe=False)
 
 
