@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders'
-    
+
 ]
 
 MIDDLEWARE = [
@@ -110,6 +110,22 @@ DATABASES = {
     }
 }
 
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+
+#         'NAME': os.getenv('DB_NAME'), fin
+
+#         'USER': os.getenv('DB_USER'),
+
+#         'PASSWORD': os.getenv('DB_PASS'),
+
+#         'HOST': 'localhost',
+
+#         'PORT': '5432',
+#     }
+# }
 
 
 # Password validation

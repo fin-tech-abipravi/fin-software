@@ -20,6 +20,7 @@ urlpatterns = [
     path('updateCostumer', TemplateView.as_view(template_name="index.html")),
     path('addCollection', TemplateView.as_view(template_name="index.html")),
     path('planclac', TemplateView.as_view(template_name="index.html")),
+    path('addPlace', TemplateView.as_view(template_name="index.html")),
 
 
     # path("", views.apiloginview, name="login"),

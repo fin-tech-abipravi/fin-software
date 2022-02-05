@@ -26,7 +26,7 @@ class PlacesDetail(APIView):
 
     def get_object(self, pk):
         try:
-            return Places.objects.get(pk=pk)
+            return Places.objects.get(place_id=pk)
         except Places.DoesNotExist:
             raise Http404
 
@@ -44,6 +44,6 @@ class PlacesDetail(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk, format=None):
-        snippet = self.get_object(pk)
+        snippet = Places.objects.get(id=pk)
         snippet.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
