@@ -6,7 +6,8 @@ from rest_framework.decorators import api_view
 from encodedecode import *
 from rest_framework.response import Response
 from .serializers import *
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
+
 from django.conf import settings
 from django.core.mail import send_mail
 
@@ -24,7 +25,7 @@ def loginuser(request):
     if UserField.objects.filter(username=username).exists() and UserField.objects.filter(password=password):
         response_data = {
             'authKey': setAuth(username),
-            'time_expire': updated_time,    
+            'time_expire': updated_time,
             'user': username
         }
         return Response(response_data)
@@ -48,7 +49,7 @@ def setAuth(username):
 
 @api_view(['POST'])
 def createUser(request):
-    serializer = UserFieldserializers(data = request.data)
+    serializer = UserFieldserializers(data=request.data)
     name = request.data.get('username')
     if serializer.is_valid():
         subject = 'User Created Successfully'
@@ -56,19 +57,51 @@ def createUser(request):
         email_from = settings.EMAIL_HOST_USER
         recipient_list = [request.data.get('email_address'), ]
         try:
-            send_mail( subject, message, email_from, recipient_list)
+            send_mail(subject, message, email_from, recipient_list)
             serializer.save()
         except BaseException as e:
             print("error", e)
             return Response(e)
     else:
         print(request.data, "invalid data got")
-    
+
     return Response(serializer.data)
 
 
 @api_view(['GET'])
 def getUser(request):
     data = UserField.objects.all()
-    serializer = UserFieldserializers(data, many =True)
+    serializer = UserFieldserializers(data, many=True)
     return Response(serializer.data)
+
+
+@api_view(['POST'])
+def sendEmail(request):
+    name = request.data.get('name')
+    cash = request.data.get('cash')
+    closedcostumers = request.data.get('close')
+    newcostumers = request.data.get('new')
+    sendemail = request.data.get('email')
+    financecompanycopy = 'praveenkumar.abipravi@outlook.in'
+
+    subject = f'Cash In hand: {date.today()} - Abipravi Finance'
+    message = f'''Hi {name}, 
+    \n{date.today()}'s Data:
+    \n========================
+    \nCash In hand = {cash}
+    \nClosed Costumers = {closedcostumers}
+    \nNew Costumers = {newcostumers}
+    \n\nThank you for using Abipravi Finance.
+    
+    \n\nRegards,
+    \n\nPraveen Kumar,
+    \n\nAbipravi Finance
+    '''
+    email_from = settings.EMAIL_HOST_USER
+    recipient_list = [sendemail, financecompanycopy, ]
+    try:
+        send_mail(subject, message, email_from, recipient_list)
+    except BaseException as e:
+        print("error", e)
+        return Response(e)
+    return Response("Sent")
