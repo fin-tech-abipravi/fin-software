@@ -1,0 +1,14 @@
+Performing system checks...
+
+System check identified no issues (0 silenced).
+February 08, 2022 - 15:49:00
+Django version 3.2, using settings 'fin.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CTRL-BREAK.
+{'username': 'admin', 'password': 'abipravidarkparadise'}
+{'Auth': '43337100a102ce6cac6bf926729311bd93a87df8', 'expires': datetime.datetime(2022, 2, 8, 17, 49, 0, 448877), 'user': 'admin'}
+43337100a102ce6cac6bf926729311bd93a87df8
+auth
+auth
+Performing system checks...
+

@@ -87,27 +87,36 @@ urlpatterns = [
          views.getcloseupdetail, name="getcloseupdetail"),
     path('createcloseup', views.createcloseup, name="createcloseup"),
     path('updatecloseup/<str:pk>', views.updatecloseup, name="updatecloseup"),
+    path('deletecloseup/<str:pk>', views.deletecloseup, name="deletecloseup"),
     # Close down  table data urls
     path('getclosedown', views.getclosedown, name="getclosedown"),
     path('getclosedowndetail/<str:pk>',
          views.getclosedowndetail, name="getclosedowndetail"),
     path('createclosedown', views.createclosedown, name="createclosedown"),
     path('updateclosedown/<str:pk>', views.updateclosedown, name="updateclosedown"),
+    path('deleteclosedown/<str:pk>', views.deleteclosedown, name="deleteclosedown"),
+
     # other Ammount in table data urls
     path('getoai', views.getoai, name="getoai"),
     path('getoaidetail/<str:pk>', views.getoaidetails, name="getoaidetail"),
     path('createoai', views.createoai, name="createoai"),
     path('updateoai/<str:pk>', views.updateoai, name="updateoai"),
+    path('deleteoai/<str:pk>', views.deleteoai, name="deleteoai"),
+
     # Ammount other out table data urls
     path('getoao', views.getoao, name="getoao"),
     path('getoaodetail/<str:pk>', views.getoaodetails, name="getoaodetail"),
     path('createoao', views.createoao, name="createoao"),
     path('updateoao/<str:pk>', views.updateoao, name="updateoao"),
+    path('deleteoao/<str:pk>', views.deleteoao, name="deleteoao"),
+
     # Inversment table data urls
     path('getinversment', views.getinversment, name="getinversment"),
     path('getinversmentdetail/<str:pk>',
          views.getinversmentdetails, name="getinversmentdetail"),
     path('createinversment', views.createinversment, name="createinversment"),
+    path('deleteinversment/<str:pk>',
+         views.deleteinversment, name="deleteinversment"),
     path('updateinversment/<str:pk>',
          views.updateinversment, name="updateinversment"),
     # others data urls
@@ -116,4 +125,5 @@ urlpatterns = [
          views.getothersdetails, name="getothersdetail"),
     path('createothers', views.createothers, name="createothers"),
     path('updateothers/<str:pk>', views.updateothers, name="updateothers"),
+    path('deleteothers/<str:pk>', views.deleteothers, name="deleteothers"),
 ]

@@ -134,10 +134,10 @@ def createcollection(request, tk):
         print(request.data)
         is_duplicate = checkDuplicate(request.data)
         if is_duplicate == 1:
-            id = CostumerCollectionbyDate(request.data.get(
-                'costumer_id'), request.data.get('date'))
-            updatecollectionbyId(request.data, id)
-            return JsonResponse("Collection Updated", safe=False)
+            # id = CostumerCollectionbyDate(request.data.get(
+            # 'costumer_id'), request.data.get('date'))
+            # updatecollectionbyId(request.data, id)
+            return JsonResponse("failed", safe=False)
         else:
             serializer = Collectionlistserializer(data=request.data)
             if serializer.is_valid():
@@ -438,6 +438,13 @@ def updatecloseup(request, pk):
     return JsonResponse(serializer.data, safe=False)
 
 
+@api_view(['DELETE'])
+def deletecloseup(request, pk):
+    data = Closeup.objects.get(id=pk)
+    data.delete()
+    return JsonResponse("CloseUp deleted successfully.", safe=False)
+
+
 '''
 ============================================================================================================================
 Close down Data Table Viewes
@@ -474,6 +481,13 @@ def updateclosedown(request, pk):
     if serializer.is_valid():
         serializer.save()
     return JsonResponse(serializer.data, safe=False)
+
+
+@api_view(['DELETE'])
+def deleteclosedown(request, pk):
+    data = Closedown.objects.get(id=pk)
+    data.delete()
+    return JsonResponse("Closedown deleted successfully.", safe=False)
 
 
 '''
@@ -514,6 +528,13 @@ def updateoai(request, pk):
     return JsonResponse(serializer.data, safe=False)
 
 
+@api_view(['DELETE'])
+def deleteoai(request, pk):
+    data = Otherammountin.objects.get(id=pk)
+    data.delete()
+    return JsonResponse("deleted successfully.", safe=False)
+
+
 '''
 ============================================================================================================================
 Other Ammount Out Data Table Viewes
@@ -550,6 +571,13 @@ def updateoao(request, pk):
     if serializer.is_valid():
         serializer.save()
     return JsonResponse(serializer.data, safe=False)
+
+
+@api_view(['DELETE'])
+def deleteoao(request, pk):
+    data = Otherammountout.objects.get(id=pk)
+    data.delete()
+    return JsonResponse("deleted successfully.", safe=False)
 
 
 '''
@@ -590,6 +618,13 @@ def updateinversment(request, pk):
     return JsonResponse(serializer.data, safe=False)
 
 
+@api_view(['DELETE'])
+def deleteinversment(request, pk):
+    data = Inversment.objects.get(id=pk)
+    data.delete()
+    return JsonResponse("deleted successfully.", safe=False)
+
+
 '''
 ============================================================================================================================
 Others Data Table Viewes
@@ -626,6 +661,13 @@ def updateothers(request, pk):
     if serializer.is_valid():
         serializer.save()
     return JsonResponse(serializer.data, safe=False)
+
+
+@api_view(['DELETE'])
+def deleteothers(request, pk):
+    data = Others.objects.get(id=pk)
+    data.delete()
+    return JsonResponse("deleted successfully.", safe=False)
 
 
 @api_view(['GET'])

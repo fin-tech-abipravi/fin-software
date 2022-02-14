@@ -73,7 +73,7 @@ class Closedown(models.Model):
     ammount = models.IntegerField()
 
     def __str__(self):
-        return costumername
+        return self.costumername
 
 
 class Otherammountin(models.Model):
@@ -82,7 +82,7 @@ class Otherammountin(models.Model):
     ammount = models.IntegerField()
 
     def __str__(self):
-        return reason
+        return self.reason
 
 
 class Otherammountout(models.Model):
@@ -91,7 +91,7 @@ class Otherammountout(models.Model):
     ammount = models.IntegerField()
 
     def __str__(self):
-        return reason
+        return self.reason
 
 
 class Inversment(models.Model):
@@ -100,7 +100,7 @@ class Inversment(models.Model):
     ammount = models.IntegerField()
 
     def __str__(self):
-        return name
+        return self.name
 
 
 class Others(models.Model):
