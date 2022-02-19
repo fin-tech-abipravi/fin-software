@@ -17,6 +17,26 @@ present_time = datetime.now()
 updated_time = datetime.now() + timedelta(hours=2)
 
 
+def check_auth(Authkey):
+    # getting current date and time for validating the token expire time
+    present_time = datetime.now()
+    '{:%H:%M:%S}'.format(present_time)
+    updated_time = datetime.now()
+    if AuthTFfield.objects.filter(Auth=Authkey):
+        Auth = AuthTFfield.objects.get(Auth=Authkey)
+        serializer = Authserializers(Auth, many=False)
+        expire_time = serializer.data.get('expires')
+        # remove the z from the output time
+        expire_time = expire_time.replace('Z', "")
+        # Converting datetime form string format to Date Time format for verifing the expiring time
+        expire_time = datetime.strptime(expire_time, '%Y-%m-%dT%H:%M:%S.%f')
+        # checking wheather the current time is greater the expire time is true it will not login else it will login return the data to the user
+        if updated_time > expire_time:
+            return False
+        else:
+            return True
+
+
 @api_view(['POST'])
 def loginuser(request):
     print(request.data)
@@ -37,8 +57,8 @@ def setAuth(username):
     authKey = secrets.token_hex(20)
     value = {'Auth': authKey, 'expires': updated_time, 'user': username}
     expire_time = updated_time
-    print(value)
-    print(authKey)
+    # print(value)
+    # print(authKey)
     serializer = Authserializers(data=value)
     if serializer.is_valid():
         serializer.save()
@@ -76,32 +96,33 @@ def getUser(request):
 
 
 @api_view(['POST'])
-def sendEmail(request):
-    name = request.data.get('name')
-    cash = request.data.get('cash')
-    closedcostumers = request.data.get('close')
-    newcostumers = request.data.get('new')
-    sendemail = request.data.get('email')
-    financecompanycopy = 'praveenkumar.abipravi@outlook.in'
+def sendEmail(request, pk):
+    if check_auth(pk) == True:
+        name = request.data.get('name')
+        cash = request.data.get('cash')
+        closedcostumers = request.data.get('close')
+        sendemail = request.data.get('email')
+        financecompanycopy = 'praveenkumar.abipravi@outlook.in'
 
-    subject = f'Cash In hand: {date.today()} - Abipravi Finance'
-    message = f'''Hi {name}, 
-    \n{date.today()}'s Data:
-    \n========================
-    \nCash In hand = {cash}
-    \nClosed Costumers = {closedcostumers}
-    \nNew Costumers = {newcostumers}
-    \n\nThank you for using Abipravi Finance.
-    
-    \n\nRegards,
-    \n\nPraveen Kumar,
-    \n\nAbipravi Finance
-    '''
-    email_from = settings.EMAIL_HOST_USER
-    recipient_list = [sendemail, financecompanycopy, ]
-    try:
-        send_mail(subject, message, email_from, recipient_list)
-    except BaseException as e:
-        print("error", e)
-        return Response(e)
-    return Response("Sent")
+        subject = f'Cash In hand: {date.today()} - Abipravi Finance'
+        message = f'''Hi {name}, 
+        \n{date.today()}'s Data:
+        \n========================
+        \nCash In hand = {cash}
+        \nClosed Costumers = {closedcostumers}
+        \n\nThank you for using Abipravi Finance.
+        
+        \nRegards,
+        \nPraveen Kumar,
+        \nAbipravi Finance
+        '''
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = [sendemail, financecompanycopy, ]
+        try:
+            send_mail(subject, message, email_from, recipient_list)
+        except BaseException as e:
+            print("error", e)
+            return Response(e)
+        return Response("Sent")
+    else:
+        return Response("Auth Failed")
