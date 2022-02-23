@@ -72,6 +72,7 @@ def createUser(request):
     serializer = UserFieldserializers(data=request.data)
     name = request.data.get('username')
     if serializer.is_valid():
+        serializer.save()
         subject = 'User Created Successfully'
         message = f'Hi {name}, thank you for registering in FINSOFT-ABIPRAVI.'
         email_from = settings.EMAIL_HOST_USER
@@ -120,9 +121,29 @@ def sendEmail(request, pk):
         recipient_list = [sendemail, financecompanycopy, ]
         try:
             send_mail(subject, message, email_from, recipient_list)
+            return Response("Sent")
         except BaseException as e:
             print("error", e)
             return Response(e)
-        return Response("Sent")
+
+    else:
+        return Response("Auth Failed")
+
+
+@api_view(['POST'])
+def sendHtmlEmail(request):
+    if request.data.get("token") == "1234567890":
+        subject = request.data.get('subject')
+        mail_to = request.data.get('mail_to')
+        message = request.data.get('body')
+        email_from = settings.EMAIL_HOST_USER
+        financecompanycopy = "praveenkumar.abipravi@outlook.in"
+        recipient_list = [mail_to, financecompanycopy, ]
+        try:
+            send_mail(subject, message, email_from, recipient_list)
+            return Response("Sent")
+        except BaseException as e:
+            print("error", e)
+            return Response(e)
     else:
         return Response("Auth Failed")
