@@ -1,0 +1,1 @@
+start cmd /C "f: && cd finance\finance software\backend\fin && workon restapi && python manage.py runserver"
