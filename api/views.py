@@ -70,8 +70,9 @@ def createcostumer(request, pk):
 def deletecostumer(request, pk, tk):
     if check_auth(tk) == True:
         data = Costumerdetails.objects.get(id=pk)
+        deleted = deleteClosedCollections(costumer_id=pk)
         data.delete()
-        return JsonResponse("Costumer deleted successfully.", safe=False)
+        return JsonResponse("Costumer Not Deleted.", safe=False)
     else:
         return JsonResponse("{'request' : 'failed', 'User' : 'User token invalid'}", safe=False)
 
@@ -97,6 +98,15 @@ def updatecostumer(request, pk):
 Collection List Viewes
 ============================================================================================================================
 '''
+
+
+def deleteClosedCollections(costumer_id):
+    users = Collectionlist.objects.filter(costumer_id=costumer_id)
+    if users:
+        users.delete()
+        return "Deleted Successfully"
+    else:
+        return "No user found"
 
 
 @api_view(['GET'])
