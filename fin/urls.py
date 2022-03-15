@@ -8,6 +8,7 @@ urlpatterns = [
     path('', include('api.urls')),
     path('auth/', include('accounts.urls')),
     path('places/', include('places.urls')),
+    path('closed/', include('closedcostumers.urls')),
 ]
 
 # urlpatterns += [

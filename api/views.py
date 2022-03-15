@@ -70,7 +70,7 @@ def createcostumer(request, pk):
 def deletecostumer(request, pk, tk):
     if check_auth(tk) == True:
         data = Costumerdetails.objects.get(id=pk)
-        deleted = deleteClosedCollections(costumer_id=pk)
+        # deleted = deleteClosedCollections(costumer_id=pk)
         data.delete()
         return JsonResponse("Costumer Not Deleted.", safe=False)
     else:
