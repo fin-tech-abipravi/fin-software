@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import date
 
 
 class Costumers(models.Model):
@@ -8,6 +9,7 @@ class Costumers(models.Model):
     loandate = models.CharField(max_length=300)
     loanammount = models.IntegerField()
     loanintrest = models.IntegerField()
+    loanclose = models.DateField(auto_now_add=True)
     ms = models.IntegerField()
 
     def __str__(self):
