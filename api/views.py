@@ -53,6 +53,13 @@ def getCostumer(request, pk):
         return JsonResponse("Invalid Data", safe=False)
 
 
+@api_view(['GET'])
+def getCostumerRange(request, start, end):
+    data = Costumerdetails.objects.filter(loan_date__range=[start, end])
+    serializer = Costumerdetailsserializer(data, many=True)
+    return JsonResponse(serializer.data, safe=False)
+
+
 @api_view(['POST'])
 def createcostumer(request, pk):
     if check_auth(pk) == True:
@@ -189,6 +196,17 @@ def updatecollectionbyId(request, pk):
 
 
 @api_view(['GET'])
+def getcostumerlastCollection(request, tk, pk):
+    if check_auth(tk) == True:
+        data = Collectionlist.objects.filter(
+            costumer_id=pk).filter(ammount__gt=0).order_by('-id')[0]
+        serializer = Collectionlistserializer(data, many=False)
+        return JsonResponse(serializer.data, safe=False)
+    else:
+        return JsonResponse("Auth Failed", safe=False)
+
+
+@api_view(['GET'])
 def getcollectionbydate(request, tk, pk):
     collection = Collectionlist.objects.filter(date=pk).values('id', 'date',
                                                                'ammount', 'costumer_id', 'costumer_name')
@@ -280,6 +298,13 @@ def getExpencetotal(request):
 
 
 @api_view(['GET'])
+def getExpencetotalrange(request, start, end):
+    data = Expencetotal.objects.filter(date__range=[start, end])
+    serializer = Expencetotalserializer(data, many=True)
+    return JsonResponse(serializer.data, safe=False)
+
+
+@api_view(['GET'])
 def getExpencedetailtotal(request, pk):
     data = Expencetotal.objects.get(id=pk)
     serializer = Expencetotalserializer(data, many=False)
@@ -324,6 +349,13 @@ DL ammount Data Table Viewes
 @api_view(['GET'])
 def getDl(request):
     data = Dlammounts.objects.all()
+    serializer = Dlammountsserializer(data, many=True)
+    return JsonResponse(serializer.data, safe=False)
+
+
+@api_view(['GET'])
+def getDlrange(request, start, end):
+    data = Dlammounts.objects.filter(date__range=[start, end])
     serializer = Dlammountsserializer(data, many=True)
     return JsonResponse(serializer.data, safe=False)
 
@@ -422,6 +454,13 @@ def getcloseup(request):
 
 
 @api_view(['GET'])
+def getclosedateRange(request, start, end):
+    data = Closeup.objects.filter(date__range=[start, end])
+    serializer = Closeupserializer(data, many=True)
+    return JsonResponse(serializer.data, safe=False)
+
+
+@api_view(['GET'])
 def getcloseupdetail(request, pk):
     data = Closeup.objects.get(id=pk)
     serializer = Closeupserializer(data, many=False)
@@ -470,6 +509,13 @@ def getclosedown(request):
 
 
 @api_view(['GET'])
+def getclosedowndateRange(request, start, end):
+    data = Closedown.objects.filter(date__range=[start, end])
+    serializer = Closeupserializer(data, many=True)
+    return JsonResponse(serializer.data, safe=False)
+
+
+@api_view(['GET'])
 def getclosedowndetail(request, pk):
     data = Closedown.objects.get(id=pk)
     serializer = Closedownserializer(data, many=False)
@@ -510,6 +556,13 @@ Other Ammount in Data Table Viewes
 @api_view(['GET'])
 def getoai(request):
     data = Otherammountin.objects.all()
+    serializer = Otherammountinserializer(data, many=True)
+    return JsonResponse(serializer.data, safe=False)
+
+
+@api_view(['GET'])
+def getoairange(request, start, end):
+    data = Otherammountin.objects.filter(date__range=[start, end])
     serializer = Otherammountinserializer(data, many=True)
     return JsonResponse(serializer.data, safe=False)
 
@@ -560,6 +613,13 @@ def getoao(request):
 
 
 @api_view(['GET'])
+def getoaoRange(request, start, end):
+    data = Otherammountout.objects.filter(date__range=[start, end])
+    serializer = Otherammountoutserializer(data, many=True)
+    return JsonResponse(serializer.data, safe=False)
+
+
+@api_view(['GET'])
 def getoaodetails(request, pk):
     data = Otherammountout.objects.get(id=pk)
     serializer = Otherammountoutserializer(data, many=False)
@@ -605,6 +665,13 @@ def getinversment(request):
 
 
 @api_view(['GET'])
+def getinversmentRange(request, start, end):
+    data = Inversment.objects.filter(date__range=[start, end])
+    serializer = Inversmentserializer(data, many=True)
+    return JsonResponse(serializer.data, safe=False)
+
+
+@api_view(['GET'])
 def getinversmentdetails(request, pk):
     data = Inversment.objects.get(id=pk)
     serializer = Inversmentserializer(data, many=False)
@@ -645,6 +712,13 @@ Others Data Table Viewes
 @api_view(['GET'])
 def getothers(request):
     data = Others.objects.all()
+    serializer = Othersserializer(data, many=True)
+    return JsonResponse(serializer.data, safe=False)
+
+
+@api_view(['GET'])
+def getothersRange(request, start, end):
+    data = Others.objects.filter(date__range=[start, end])
     serializer = Othersserializer(data, many=True)
     return JsonResponse(serializer.data, safe=False)
 

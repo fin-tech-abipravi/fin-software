@@ -29,6 +29,8 @@ urlpatterns = [
     # costumer Data urls
 
     path('getcostumer/<str:pk>/', views.getCostumer, name="getcostumer"),
+    path('getcostumer/<str:start>/<str:end>/',
+         views.getCostumerRange, name="getcostumerrange"),
     path('createcostumer/<str:pk>/', views.createcostumer, name="createcostumer"),
     path('deletecostumer/<str:pk>/<str:tk>/',
          views.deletecostumer, name="deletecostumer"),
@@ -52,6 +54,8 @@ urlpatterns = [
          views.updatecollection, name="updatecollection"),
     path('getcostumercollectionbydate/<str:tk>/<str:pk>/<str:date>/',
          views.getCostumerCollectionbyDate, name='getcostumercollectionbydate'),
+    path('getcostumercollectionlatest/<str:tk>/<str:pk>/', views.getcostumerlastCollection,
+         name='getcostumercollectionlatest'),
     # expece table data urls
     path('getexpence/', views.getExpence, name="getexpence"),
     path('getexpencedetail/',
@@ -61,6 +65,8 @@ urlpatterns = [
     path('updateexpence/<str:pk>', views.updateExpence, name="updateexpence"),
     # expece total table data urls
     path('getexpencetotal/', views.getExpencetotal, name="getexpencetotal"),
+    path('getexpencetotal/<str:start>/<str:end>/',
+         views.getExpencetotalrange, name="getExpencetotalrange"),
     path('getexpencedetailtotal/<str:pk>/', views.getExpencedetailtotal,
          name="getexpencedetailtotal"),
     path('createexpencetotal/',
@@ -71,6 +77,7 @@ urlpatterns = [
          views.updateExpencetotal, name="updateexpencetotal"),
     # Dl ammount  table data urls
     path('getdl/', views.getDl, name="getdl"),
+    path('getdl/<str:start>/<str:end>/', views.getDlrange, name="getDlrange"),
     path('getdldetail/<str:pk>/', views.getDldetail, name="getdldetail"),
     path('createdl/', views.createDl, name="createdl"),
     path('deletedl/<str:pk>/', views.deleteDl, name="deletedl"),
@@ -82,7 +89,9 @@ urlpatterns = [
     path('updateaih/<str:pk>', views.updateaih, name="updateaih"),
     path('getaihlatest', views.getaithlatest, name="getaihlatest"),
     # Close up  table data urls
-    path('getcloseup', views.getcloseup, name="getcloseup"),
+    path('getcloseup/', views.getcloseup, name="getcloseup"),
+    path('getcloseuprange/<str:start>/<str:end>/',
+         views.getclosedateRange, name="getclosedateRange"),
     path('getcloseupdetail/<str:pk>',
          views.getcloseupdetail, name="getcloseupdetail"),
     path('createcloseup', views.createcloseup, name="createcloseup"),
@@ -90,6 +99,8 @@ urlpatterns = [
     path('deletecloseup/<str:pk>', views.deletecloseup, name="deletecloseup"),
     # Close down  table data urls
     path('getclosedown', views.getclosedown, name="getclosedown"),
+    path('getclosedownrange/<str:start>/<str:end>/',
+         views.getclosedowndateRange, name="getclosedowndateRange"),
     path('getclosedowndetail/<str:pk>',
          views.getclosedowndetail, name="getclosedowndetail"),
     path('createclosedown', views.createclosedown, name="createclosedown"),
@@ -98,6 +109,8 @@ urlpatterns = [
 
     # other Ammount in table data urls
     path('getoai', views.getoai, name="getoai"),
+    path('getoai/<str:start>/<str:end>/',
+         views.getoairange, name="getoairange"),
     path('getoaidetail/<str:pk>', views.getoaidetails, name="getoaidetail"),
     path('createoai', views.createoai, name="createoai"),
     path('updateoai/<str:pk>', views.updateoai, name="updateoai"),
@@ -105,6 +118,8 @@ urlpatterns = [
 
     # Ammount other out table data urls
     path('getoao', views.getoao, name="getoao"),
+    path('getoao/<str:start>/<str:end>/',
+         views.getoaoRange, name="getoaoRange"),
     path('getoaodetail/<str:pk>', views.getoaodetails, name="getoaodetail"),
     path('createoao', views.createoao, name="createoao"),
     path('updateoao/<str:pk>', views.updateoao, name="updateoao"),
@@ -112,6 +127,8 @@ urlpatterns = [
 
     # Inversment table data urls
     path('getinversment', views.getinversment, name="getinversment"),
+    path('getinversment/<str:start>/<str:end>/',
+         views.getinversmentRange, name="getinversmentRange"),
     path('getinversmentdetail/<str:pk>',
          views.getinversmentdetails, name="getinversmentdetail"),
     path('createinversment', views.createinversment, name="createinversment"),
@@ -121,6 +138,8 @@ urlpatterns = [
          views.updateinversment, name="updateinversment"),
     # others data urls
     path('getothers', views.getothers, name="getothers"),
+    path('getothers/<str:start>/<str:end>/',
+         views.getothersRange, name="getothersRange"),
     path('getothersdetail/<str:pk>',
          views.getothersdetails, name="getothersdetail"),
     path('createothers', views.createothers, name="createothers"),
