@@ -470,6 +470,13 @@ def getaithlatest(request):
     return JsonResponse(serializer.data, safe=False)
 
 
+@api_view(["GET"])
+def getaihrange(request, date):
+    data = Ammountinhand.objects.get(date=date)
+    serializer = Ammountinhandserializer(data, many=False)
+    return JsonResponse(serializer.data, safe=False)
+
+
 """
 ============================================================================================================================
 Close up Data Table Viewes
