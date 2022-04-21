@@ -10,12 +10,12 @@ from .serializers import *
 
 class PartiesView(APIView):
     def get(self, request, format=None):
-        data = Costumers.objects.all()
-        serializer = Costumersserializer(data, many=True)
+        data = Parties.objects.all()
+        serializer = PartiesSerializers(data, many=True)
         return Response(serializer.data)
 
     def post(self, request, pk, format=None):
-        serializer = Costumersserializer(data=request.data)
+        serializer = PartiesSerializers(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)

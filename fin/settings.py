@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'closedcostumers',
     'rest_framework',
     'rest_framework.authtoken',
-    'corsheaders'
+    'corsheaders',
+    'parties'
 
 ]
 
