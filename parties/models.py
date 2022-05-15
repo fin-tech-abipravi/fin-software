@@ -13,3 +13,11 @@ class Parties(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Partyloans(models.Model):
+    party_id = models.IntegerField(default=0)
+    loan_id = models.IntegerField(default=0)
+
+    def __int__(self):
+        return self.loan_id

@@ -73,7 +73,7 @@ def getCostumer(request, pk):
         serializer = Costumerdetailsserializer(data, many=True)
         return JsonResponse(serializer.data, safe=False)
     else:
-        return JsonResponse("Invalid Data", safe=False)
+        return Response({"Error": "Invalid Data"}, status=status.HTTP_401_UNAUTHORIZED)
 
 
 @api_view(["GET"])
