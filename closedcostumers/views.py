@@ -54,13 +54,13 @@ class ClosedCostumerView(APIView):
 class ClosedCostumerDetailView(APIView):
     def get_object(self, pk):
         try:
-            return Costumers.objects.get(id=pk)
+            return Costumers.objects.filter(costumer_id=pk)
         except Costumers.DoesNotExist:
             raise Http404
 
     def get(self, request, pk, format=None):
         data = self.get_object(pk)
-        serializer = Costumersserializer(data)
+        serializer = Costumersserializer(data, many=True)
         return Response(serializer.data)
 
     def put(self, request, pk, format=None):
