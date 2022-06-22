@@ -1,45 +1,46 @@
+import json
+from datetime import datetime, timedelta
+
+from accounts.models import AuthTFfield
+from accounts.serializers import Authserializers
+from django.core import serializers
+from django.http import JsonResponse
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from django.http import JsonResponse
-from django.core import serializers
-import json
-from datetime import datetime, timedelta
-from accounts.models import AuthTFfield
-from accounts.serializers import Authserializers
-
-# Importing Models.
 
 from .models import (
-    Costumerdetails,
-    Collectionlist,
-    Dlammounts,
     Ammountinhand,
+    Closedown,
+    Closeup,
+    Collectionlist,
+    Costumerdetails,
+    Dlammounts,
     Expence,
     Expencetotal,
-    Closeup,
-    Closedown,
+    Inversment,
     Otherammountin,
     Otherammountout,
-    Inversment,
     Others,
 )
 
 # importing serializers.
 from .serializers import (
-    Costumerdetailsserializer,
-    Collectionlistserializer,
-    Dlammountsserializer,
     Ammountinhandserializer,
-    Expencetotalserializer,
-    Expenceserializer,
-    Closeupserializer,
     Closedownserializer,
+    Closeupserializer,
+    Collectionlistserializer,
+    Costumerdetailsserializer,
+    Dlammountsserializer,
+    Expenceserializer,
+    Expencetotalserializer,
+    Inversmentserializer,
     Otherammountinserializer,
     Otherammountoutserializer,
-    Inversmentserializer,
     Othersserializer,
 )
+
+# Importing Models.
 
 
 def check_auth(Authkey):
@@ -284,6 +285,13 @@ def getExpence(request):
 def getExpencedetail(request, pk):
     data = Expence.objects.get(id=pk)
     serializer = Expenceserializer(data, many=False)
+    return JsonResponse(serializer.data, safe=False)
+
+
+@api_view(["GET"])
+def getExpenceRange(request, start, end):
+    data = Expence.objects.filter(date__range=[start, end])
+    serializer = Expenceserializer(data, many=True)
     return JsonResponse(serializer.data, safe=False)
 
 

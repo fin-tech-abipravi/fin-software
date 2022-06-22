@@ -1,5 +1,5 @@
-from django.urls import path, include, re_path
 from django.contrib import admin
+from django.urls import include, path, re_path
 from django.views.generic import TemplateView
 
 # importing Views for routing
@@ -37,11 +37,9 @@ urlpatterns = [
         "deletecostumer/<str:pk>/<str:tk>/", views.deletecostumer, name="deletecostumer"
     ),
     path("updatecostumer/<str:pk>/", views.updatecostumer, name="updatecostumer"),
-    path("costumerdetail/<str:pk>/",
-         views.getcostumerdetail, name="costumerdetail"),
+    path("costumerdetail/<str:pk>/", views.getcostumerdetail, name="costumerdetail"),
     # Collection List Data URLS
-    path("createcollection/<str:tk>/",
-         views.createcollection, name="createcollection"),
+    path("createcollection/<str:tk>/", views.createcollection, name="createcollection"),
     path("getcollection/<str:tk>/", views.getcollection, name="getcollection"),
     path(
         "getcollectiondetail/<str:pk>/",
@@ -53,10 +51,8 @@ urlpatterns = [
         views.getcollectionbydate,
         name="getcollectionbydate",
     ),
-    path("deletecollection/<str:pk>",
-         views.deletecollection, name="deletecollection"),
-    path("updatecollection/<str:pk>",
-         views.updatecollection, name="updatecollection"),
+    path("deletecollection/<str:pk>", views.deletecollection, name="deletecollection"),
+    path("updatecollection/<str:pk>", views.updatecollection, name="updatecollection"),
     path(
         "getcostumercollectionbydate/<str:tk>/<str:pk>/<str:date>/",
         views.getCostumerCollectionbyDate,
@@ -73,6 +69,11 @@ urlpatterns = [
     path("createexpence/", views.createExpence, name="createexpence"),
     path("deleteexpence/<str:pk>", views.deleteExpence, name="deleteexpence"),
     path("updateexpence/<str:pk>", views.updateExpence, name="updateexpence"),
+    path(
+        "getexpence/<str:start>/<str:end>/",
+        views.getExpenceRange,
+        name="getexpencerange",
+    ),
     # expece total table data urls
     path("getexpencetotal/", views.getExpencetotal, name="getexpencetotal"),
     path(
@@ -85,8 +86,7 @@ urlpatterns = [
         views.getExpencedetailtotal,
         name="getexpencedetailtotal",
     ),
-    path("createexpencetotal/", views.createExpencetotal,
-         name="createexpencetotal"),
+    path("createexpencetotal/", views.createExpencetotal, name="createexpencetotal"),
     path(
         "deleteexpencetotal/<str:pk>",
         views.deleteExpencetotal,
@@ -118,8 +118,7 @@ urlpatterns = [
         views.getclosedateRange,
         name="getclosedateRange",
     ),
-    path("getcloseupdetail/<str:pk>",
-         views.getcloseupdetail, name="getcloseupdetail"),
+    path("getcloseupdetail/<str:pk>", views.getcloseupdetail, name="getcloseupdetail"),
     path("createcloseup", views.createcloseup, name="createcloseup"),
     path("updatecloseup/<str:pk>", views.updatecloseup, name="updatecloseup"),
     path("deletecloseup/<str:pk>", views.deletecloseup, name="deletecloseup"),
@@ -140,16 +139,14 @@ urlpatterns = [
     path("deleteclosedown/<str:pk>", views.deleteclosedown, name="deleteclosedown"),
     # other Ammount in table data urls
     path("getoai", views.getoai, name="getoai"),
-    path("getoai/<str:start>/<str:end>/",
-         views.getoairange, name="getoairange"),
+    path("getoai/<str:start>/<str:end>/", views.getoairange, name="getoairange"),
     path("getoaidetail/<str:pk>", views.getoaidetails, name="getoaidetail"),
     path("createoai", views.createoai, name="createoai"),
     path("updateoai/<str:pk>", views.updateoai, name="updateoai"),
     path("deleteoai/<str:pk>", views.deleteoai, name="deleteoai"),
     # Ammount other out table data urls
     path("getoao", views.getoao, name="getoao"),
-    path("getoao/<str:start>/<str:end>/",
-         views.getoaoRange, name="getoaoRange"),
+    path("getoao/<str:start>/<str:end>/", views.getoaoRange, name="getoaoRange"),
     path("getoaodetail/<str:pk>", views.getoaodetails, name="getoaodetail"),
     path("createoao", views.createoao, name="createoao"),
     path("updateoao/<str:pk>", views.updateoao, name="updateoao"),
@@ -167,17 +164,14 @@ urlpatterns = [
         name="getinversmentdetail",
     ),
     path("createinversment", views.createinversment, name="createinversment"),
-    path("deleteinversment/<str:pk>",
-         views.deleteinversment, name="deleteinversment"),
-    path("updateinversment/<str:pk>",
-         views.updateinversment, name="updateinversment"),
+    path("deleteinversment/<str:pk>", views.deleteinversment, name="deleteinversment"),
+    path("updateinversment/<str:pk>", views.updateinversment, name="updateinversment"),
     # others data urls
     path("getothers", views.getothers, name="getothers"),
     path(
         "getothers/<str:start>/<str:end>/", views.getothersRange, name="getothersRange"
     ),
-    path("getothersdetail/<str:pk>",
-         views.getothersdetails, name="getothersdetail"),
+    path("getothersdetail/<str:pk>", views.getothersdetails, name="getothersdetail"),
     path("createothers", views.createothers, name="createothers"),
     path("updateothers/<str:pk>", views.updateothers, name="updateothers"),
     path("deleteothers/<str:pk>", views.deleteothers, name="deleteothers"),
