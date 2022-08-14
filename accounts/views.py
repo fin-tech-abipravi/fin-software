@@ -5,6 +5,7 @@ from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from encodedecode import *
 from rest_framework.response import Response
+from rest_framework import status
 from .serializers import *
 from datetime import datetime, timedelta, date
 
@@ -14,7 +15,7 @@ from django.core.mail import send_mail
 present_time = datetime.now()
 
 '{:%H:%M:%S}'.format(present_time)
-updated_time = datetime.now() + timedelta(hours=2)
+updated_time = datetime.now() + timedelta(hours=15)
 
 
 def check_auth(Authkey):
@@ -51,6 +52,23 @@ def loginuser(request):
         return Response(response_data)
     else:
         return Response("Not Logged...")
+
+@api_view(['POST'])
+def loginusermobile(request):
+    print(request.data)
+    username = str(request.data.get('username'))
+    password = '100404'
+    if UserField.objects.filter(username=username).exists() and UserField.objects.filter(password=password):
+        response_data = {
+            'authKey': setAuth(username),
+            'time_expire': updated_time,
+            'user': username
+        }
+        return Response(response_data)
+    else:
+        print("Invalid")
+        return Response({'report': 'invalid credentials'}, status=status.HTTP_404_NOT_FOUND)
+
 
 
 def setAuth(username):

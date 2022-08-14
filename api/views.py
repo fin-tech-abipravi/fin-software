@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 from accounts.models import AuthTFfield
 from accounts.serializers import Authserializers
 from django.core import serializers
+from rest_framework import status
 from django.http import JsonResponse
 from django.shortcuts import render
 from rest_framework.decorators import api_view
@@ -85,6 +86,11 @@ def getCostumerRange(request, tk, start, end):
         return JsonResponse(serializer.data, safe=False)
     else:
         return JsonResponse("Auth failed", safe=False)
+    
+
+def printTableUi(request):
+    data = Costumerdetails.objects.all().order_by("place_id", '-loan_date')
+    return render(request, "print.html", {'printData': data})
 
 
 @api_view(["POST"])
@@ -163,6 +169,13 @@ def getcollectiondetail(request, pk):
     serializer = Collectionlistserializer(user_lists, many=True)
     return JsonResponse(serializer.data, safe=False)
 
+
+@api_view(["GET"])
+def getcollectiondetailLatest(request, pk):
+    data = Collectionlist.objects.filter(costumer_id=pk).latest("id")
+    serializer = Collectionlistserializer(data, many=False)
+    return JsonResponse(serializer.data, safe=False)
+ 
 
 def checkDuplicate(data):
     date = data.get("date")

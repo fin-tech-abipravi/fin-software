@@ -10,6 +10,8 @@ class Costumerdetails(models.Model):
     place = models.CharField(max_length=300)
     ammount_Balance = models.CharField(max_length=300)
     place_id = models.IntegerField()
+    last_collected = models.CharField(max_length=300, blank=True)
+    last_collected_date = models.CharField(max_length=300, blank=True)
 
     def __str__(self):
         return self.name

@@ -47,6 +47,11 @@ urlpatterns = [
         name="getcollectiondetail",
     ),
     path(
+        "getcollectiondetail/latest/<str:pk>/",
+        views.getcollectiondetailLatest,
+        name="getcollectiondetailLatest",
+    ),
+    path(
         "getcollectionbydate/<str:tk>/<str:pk>/",
         views.getcollectionbydate,
         name="getcollectionbydate",
@@ -175,4 +180,5 @@ urlpatterns = [
     path("createothers", views.createothers, name="createothers"),
     path("updateothers/<str:pk>", views.updateothers, name="updateothers"),
     path("deleteothers/<str:pk>", views.deleteothers, name="deleteothers"),
+    path("print/table/ui", views.printTableUi, name="printTableUi"),
 ]
