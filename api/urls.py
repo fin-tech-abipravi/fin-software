@@ -68,6 +68,7 @@ urlpatterns = [
         views.getcostumerlastCollection,
         name="getcostumercollectionlatest",
     ),
+    path('collectionrange/<str:tk>/<str:start>/<str:end>/', views.getCollectionDateRange),
     # expece table data urls
     path("getexpence/", views.getExpence, name="getexpence"),
     path("getexpencedetail/", views.getExpencedetail, name="getexpencedetail"),
