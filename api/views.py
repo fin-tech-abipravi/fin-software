@@ -280,6 +280,15 @@ def getCostumerCollectionbyDate(request, tk, pk, date):
     return JsonResponse(serializer.data, safe=False)
 
 
+@api_view(['GET'])
+def getCollectionDateRange(request, tk, start, end):
+    if check_auth(tk) == True:
+        data = Collectionlist.objects.filter(date__range=[start, end])
+        serializer = Collectionlistserializer(data, many=True)
+        return JsonResponse(serializer.data, safe=False)
+    else:
+        return JsonResponse("authfailed", safe=False)
+
 """
 ============================================================================================================================
 Expence Table Viewes
