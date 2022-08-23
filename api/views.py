@@ -132,6 +132,8 @@ def updatecostumer(request, pk):
     serializer = Costumerdetailsserializer(instance=data, data=request.data)
     if serializer.is_valid():
         serializer.save()
+    else:
+        print(data)
     return JsonResponse(serializer.data, safe=False)
 
 

@@ -8,4 +8,4 @@ class Places(models.Model):
     place = models.CharField(max_length=300)
 
     def __str__(self):
-        return self.place
+        return f'{self.place}, {self.place_id}'
