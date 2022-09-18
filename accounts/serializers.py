@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import AuthTFfield, UserField
+from .models import AuthTFfield, UserField, AccessUsers
 
 class Authserializers(serializers.ModelSerializer):
 	class Meta:
@@ -10,4 +10,9 @@ class Authserializers(serializers.ModelSerializer):
 class UserFieldserializers(serializers.ModelSerializer):
 	class Meta:
 		model = UserField
+		fields = '__all__'
+
+class AccessUsersserializers(serializers.ModelSerializer):
+	class Meta:
+		model = AccessUsers
 		fields = '__all__'

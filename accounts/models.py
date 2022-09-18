@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 
 
 class UserField(models.Model):
@@ -17,3 +18,8 @@ class AuthTFfield(models.Model):
 
     def __str__(self):
         return self.Auth
+
+class AccessUsers(models.Model):
+    user1 = models.CharField(max_length=300, blank=True)
+    user2 = models.CharField(max_length=300, blank=True)
+    date = models.CharField(max_length=300, default=datetime.date.today())

@@ -1,1 +1,0 @@
-start cmd.exe /C "workon restapi && python manage.py runserver 192.168.45.109:5000"

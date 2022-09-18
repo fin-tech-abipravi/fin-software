@@ -209,6 +209,7 @@ def createcollection(request, tk):
                 print(f"\n{serializer.data}\n")
             return JsonResponse(serializer.data, safe=False)
     else:
+        print("Auth Failed")
         return JsonResponse("Create Collection Error", safe=False)
 
 

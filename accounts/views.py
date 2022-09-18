@@ -165,3 +165,17 @@ def sendHtmlEmail(request):
             return Response(e)
     else:
         return Response("Auth Failed")
+
+@api_view(['POST', 'GET'])
+def SetAccessUsers(request):
+    if request.method == 'POST':
+        serializer = AccessUsersserializers(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response({'report': 'invalid Data'}, status=status.HTTP_404_NOT_FOUND)
+    else:
+        data = AccessUsers.objects.filter(date=date.today())
+        serializer = AccessUsersserializers(data, many=True)
+        return Response(serializer.data)

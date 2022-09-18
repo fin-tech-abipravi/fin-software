@@ -8,4 +8,5 @@ urlpatterns = [
     path("getuser", views.getUser, name="getuser"),
     path('sendemail/<str:pk>', views.sendEmail, name='sendemail'),
     path("sendhtmlemail", views.sendHtmlEmail, name="sendhtmlemail"),
+    path("accessusers/", views.SetAccessUsers, name="SetAccessUsers"),
 ]
