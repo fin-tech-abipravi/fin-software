@@ -5,6 +5,9 @@ import datetime
 class UserField(models.Model):
     username = models.CharField(max_length=300)
     password = models.CharField(max_length=300)
+    fullname = models.CharField(max_length=300, blank=True)
+    dateofcreation = models.DateTimeField(auto_now=True)
+    account_type = models.CharField(max_length=300, default="user")
     email_address = models.CharField(max_length=300)
 
     def __str__(self):
