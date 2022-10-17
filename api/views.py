@@ -39,6 +39,8 @@ from .serializers import (
     Otherammountinserializer,
     Otherammountoutserializer,
     Othersserializer,
+    BulkCostumerSerializer,
+    CollectionBulkSerializer
 )
 
 # Importing Models.
@@ -104,6 +106,19 @@ def createcostumer(request, pk):
         return JsonResponse(serializer.data, safe=False)
     else:
         return JsonResponse(request.data, safe=False)
+
+@api_view(['PUT'])
+def bulk_update_costumer(request, tk):
+    if check_auth(tk) == True:
+        costs = Costumerdetails.objects.all()
+        serializer = BulkCostumerSerializer(instance=costs, data=request.data, many=True)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, safe=False)
+        else:
+            return Response({'status':'Invalid Data'}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response({'status':'auth failed'}, status=status.HTTP_401_UNAUTHORIZED)
 
 
 @api_view(["DELETE"])
@@ -212,6 +227,17 @@ def createcollection(request, tk):
         print("Auth Failed")
         return JsonResponse("Create Collection Error", safe=False)
 
+@api_view(['POST'])
+def bulkcreatecollection(request, token):
+   if check_auth(token) == True:
+       serializer = CollectionBulkSerializer(request.data, many=True)
+       if serializer.is_valid():
+           serializer.save()
+           return JsonResponse(serializer.data, safe=False)
+       else:
+           return Response({"status": 'invalid Data'}, status=status.HTTP_400_BAD_REQUEST)
+   else:
+       return Response({"status":"unautorized"}, status=status.HTTP_401_UNAUTHORIZED)
 
 @api_view(["DELETE"])
 def deletecollection(request, pk):

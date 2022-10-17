@@ -37,6 +37,8 @@ urlpatterns = [
         "deletecostumer/<str:pk>/<str:tk>/", views.deletecostumer, name="deletecostumer"
     ),
     path("updatecostumer/<str:pk>/", views.updatecostumer, name="updatecostumer"),
+    path("bulk/updatecostumer/<str:tk>/", views.bulk_update_costumer, name="updatecostumerbulk"),
+    path("bulk/createcollection/<str:token>/", views.bulkcreatecollection, name="createcollectionbulk"),
     path("costumerdetail/<str:pk>/", views.getcostumerdetail, name="costumerdetail"),
     # Collection List Data URLS
     path("createcollection/<str:tk>/", views.createcollection, name="createcollection"),

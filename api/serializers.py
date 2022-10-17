@@ -7,10 +7,44 @@ class Costumerdetailsserializer(serializers.ModelSerializer):
 	class Meta:
 		model = Costumerdetails
 		fields = '__all__'
+
+class CostumerListSerializer(serializers.ListSerializer):
+    def update(self, instance, validated_data):
+        cost_mapping = {cust.id: cust for cust in instance}
+        data_mapping = {item['id']: item for item in validated_data}
+        ret = []
+        for prod_id, data in data_mapping.items():
+            cost = cost_mapping.get(prod_id, None)
+            if cost is None:
+                ret.append(self.child.create(data))
+            else:
+                ret.append(self.child.update(cost, data))
+
+        return ret
+
+class BulkCostumerSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField()
+   
+    class Meta:
+        model = Costumerdetails
+        fields = '__all__'
+        list_serializer_class = CostumerListSerializer   
+
 class Collectionlistserializer(serializers.ModelSerializer):
 	class Meta:
 		model = Collectionlist
 		fields = '__all__'
+
+class CollectionListBulkSerializer(serializers.ModelSerializer):
+    def create(self, validated_data):
+        clistitems = [Collectionlist(**item) for item in validated_data]
+        return Collectionlist.objects.bulk_create(clistitems)
+
+class CollectionBulkSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Collectionlist
+        list_serializer_class = CollectionListBulkSerializer
+        fields = '__all__'
 
 class Dlammountsserializer(serializers.ModelSerializer):
 	class Meta:

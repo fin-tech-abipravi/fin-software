@@ -104,7 +104,6 @@ class Inversment(models.Model):
     def __str__(self):
         return self.name
 
-
 class Others(models.Model):
     date = models.CharField(max_length=300)
     reason = models.CharField(max_length=300)

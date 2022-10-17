@@ -9,7 +9,7 @@ class Parties(models.Model):
     email_id = models.CharField(
         max_length=300, default='none', null=True, blank=True)
     place_id = models.IntegerField()
-    contact = models.IntegerField(default=0000000000, null=True)
+    contact = models.CharField(max_length=100, default=0000000000)
 
     def __str__(self):
         return self.name
