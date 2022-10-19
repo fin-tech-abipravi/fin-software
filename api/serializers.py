@@ -35,7 +35,7 @@ class Collectionlistserializer(serializers.ModelSerializer):
 		model = Collectionlist
 		fields = '__all__'
 
-class CollectionListBulkSerializer(serializers.ModelSerializer):
+class CollectionListBulkSerializer(serializers.ListSerializer):
     def create(self, validated_data):
         clistitems = [Collectionlist(**item) for item in validated_data]
         return Collectionlist.objects.bulk_create(clistitems)

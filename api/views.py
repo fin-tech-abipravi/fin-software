@@ -230,12 +230,12 @@ def createcollection(request, tk):
 @api_view(['POST'])
 def bulkcreatecollection(request, token):
    if check_auth(token) == True:
-       serializer = CollectionBulkSerializer(request.data, many=True)
+       serializer = CollectionBulkSerializer(data=request.data, many=True)
        if serializer.is_valid():
            serializer.save()
            return JsonResponse(serializer.data, safe=False)
        else:
-           return Response({"status": 'invalid Data'}, status=status.HTTP_400_BAD_REQUEST)
+           return Response({"status": "invalid Data"}, status=status.HTTP_400_BAD_REQUEST)
    else:
        return Response({"status":"unautorized"}, status=status.HTTP_401_UNAUTHORIZED)
 
@@ -351,10 +351,9 @@ def createExpence(request):
     serializer = Expenceserializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
+        return JsonResponse(serializer.data, safe=False)
     else:
-        print("not")
-        print(serializer.data)
-    return JsonResponse(serializer.data, safe=False)
+        return Response({"status":'failed'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(["DELETE"])
