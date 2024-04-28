@@ -107,15 +107,15 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        'NAME': os.getenv('DB_NAME'),
+        'NAME':'defaultdb',
 
-        'USER': os.getenv('DB_USER'),
+        'USER': 'avnadmin',
 
-        'PASSWORD': os.getenv('DB_PASS'),
+        'PASSWORD': 'AVNS_NggSvyvpPo0synJK80v',
 
-        'HOST': 'localhost',
+        'HOST': 'pg-245ab19d-findemo.d.aivencloud.com',
 
-        'PORT': '5432',
+        'PORT': '11184',
     }
 }
 
